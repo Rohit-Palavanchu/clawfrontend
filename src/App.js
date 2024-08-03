@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import CreateTodo from './components/CreateTodo';
+import ViewTodos from './components/ViewTodos';
+import EditTodo from './components/EditTodo';
+import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <ProtectedRoute exact path="/create-todo" component={CreateTodo} />
+          <ProtectedRoute path="/todos" component={ViewTodos} />
+          <ProtectedRoute path="/edit-todo/:id" component={EditTodo} />
+          <ProtectedRoute path="/" exact component={ViewTodos} /> {/* Default route */}
+        </Switch>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
